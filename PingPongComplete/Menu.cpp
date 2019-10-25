@@ -7,40 +7,33 @@
 	text[0].setFont(font);
 	text[0].setFillColor(sf::Color::Red);
 	text[0].setCharacterSize(40);
-	text[0].setPosition(Width / 2-120, Height / 2+30);
+	text[0].setPosition(Width / 2-90, Height / 2-50);
 	text[0].setString("1 Player");
+	text[0].setOutlineThickness(3);
+	text[0].setOutlineColor(sf::Color::Black);
 	text[1].setFont(font);
 	text[1].setFillColor(sf::Color::White);
 	text[1].setCharacterSize(40);
-	text[1].setPosition(Width / 2-120, Height / 2+100);
+	text[1].setPosition(Width / 2-90, Height / 2+20);
 	text[1].setString("2 Player");
+	text[1].setOutlineThickness(3);
+	text[1].setOutlineColor(sf::Color::Black);
 	text[2].setFont(font);
 	text[2].setFillColor(sf::Color::White);
 	text[2].setCharacterSize(40);
-	text[2].setPosition(Width / 2-80, Height / 2 + 170);
+	text[2].setPosition(Width / 2-50, Height / 2 + 90);
 	text[2].setString("Exit");
-	/*Khởi tạo và vẽ chuỗi trang trí*/
-	Mode.setFont(font);
-	Mode.setFillColor(sf::Color::Yellow);
-	Mode.setCharacterSize(40);
-	Mode.setOutlineThickness(3);
-	Mode.setOutlineColor(sf::Color::Green);
-	Mode.setPosition(Width / 2 - 150, Height / 2 - 70);
-	Mode.setString("Choose Mode:");
-	Title.setFont(font);
-	Title.setFillColor(sf::Color::Yellow);
-	Title.setCharacterSize(50); 
-	Title.setOutlineThickness(3);
-	Title.setOutlineColor(sf::Color::Green);
-	Title.setPosition(Width / 2 - 300, Height / 2 - 200);
-	Title.setString("Welcome To Pong Game !");
+	text[2].setOutlineThickness(3);
 	SelectedOption = 0;/*Gán lựa chọn ban đầu là 0*/
+	BackGround.loadFromFile("background.png");
+	sprite.setTexture(BackGround);
+	sprite.setTextureRect(sf::IntRect(0, 0, Width, Height));
 }
  /*Hàm vẽ Menu*/
 void Menu::DrawMenu(sf::RenderWindow &Window)
 {
-	Window.draw(Mode);
-	Window.draw(Title);
+	
+	Window.draw(sprite);
 	for (int i = 0;i < Options; i++)
 	{
 		Window.draw(text[i]);

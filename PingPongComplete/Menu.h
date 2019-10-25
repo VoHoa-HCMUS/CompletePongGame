@@ -8,8 +8,8 @@ private:
 	int SelectedOption;
 	sf::Font font;
 	sf::Text text[Options];
-	sf::Text Mode;
-	sf::Text Title;
+	sf::Texture BackGround;
+	sf::Sprite sprite;
 public:
 	void DrawMenu(sf::RenderWindow& Window);
 	void MoveUp();

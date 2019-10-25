@@ -19,41 +19,63 @@ void Game::CreateText()
 	text.setFillColor(sf::Color::Yellow);
 	/*Tạo kích thươc chữ*/
 	text.setCharacterSize(30);
-	text.setPosition(280, 400);
-	middle.setFont(font);
-	middle.setFillColor(sf::Color::Yellow);
-	middle.setPosition((350 + 580) / 2, 30);
-	middle.setString(":");
+	text.setPosition(320, 400);
+	text.setOutlineThickness(3);
+	text.setOutlineColor(sf::Color::Black);
 	Player1Point.setFont(font);
-	Player1Point.setPosition(350, 30);
+	Player1Point.setPosition(400, 30);
 	Player1Point.setFillColor(sf::Color::Yellow);
 	Player1Point.setString("0");
+	Player1Point.setOutlineThickness(3);
+	Player1Point.setOutlineColor(sf::Color::Black);
 	Player2Point.setFont(font);
 	Player2Point.setPosition(580, 30);
 	Player2Point.setFillColor(sf::Color::Yellow);
 	Player2Point.setString("0");
+	Player2Point.setOutlineThickness(3);
+	Player2Point.setOutlineColor(sf::Color::Black);
 	Exit.setFont(font);
 	Exit.setFillColor(sf::Color::Yellow);
 	Exit.setCharacterSize(30);
-	Exit.setPosition(350, 440);
+	Exit.setPosition(390, 440);
+	Exit.setOutlineThickness(3);
+	Exit.setOutlineColor(sf::Color::Black);
 	Winner.setFont(font);
 	Winner.setFillColor(sf::Color::Yellow);
 	Winner.setCharacterSize(40);
-	Winner.setPosition(350, 300);
+	Winner.setPosition(400, 300);
+	Winner.setOutlineThickness(3);
+	Winner.setOutlineColor(sf::Color::Black);
+	BackGround.loadFromFile("backgroundgameplay.jpg");
+	sprite.setTexture(BackGround);
+	sprite.setTextureRect(sf::IntRect(0, 0, Width, Height));
 }
 /*Hàm tạo đường viền cho màn hình chơi*/
 void Game::CreateOutline()
 {
 	Outline1.setSize(sf::Vector2f(10, Height));
+	Outline1.setOutlineThickness(3);
+	Outline1.setOutlineColor(sf::Color::Black);
 	Outline1.setFillColor(sf::Color::Cyan);
 	Outline2.setSize(sf::Vector2f(Width, 10));
 	Outline2.setFillColor(sf::Color::Cyan);
+	Outline2.setOutlineThickness(3);
+	Outline2.setOutlineColor(sf::Color::Black);
 	Outline3.setPosition(sf::Vector2f(Width - 10, 0));
 	Outline3.setSize(sf::Vector2f(10, Height));
 	Outline3.setFillColor(sf::Color::Cyan);
+	Outline3.setOutlineThickness(3);
+	Outline3.setOutlineColor(sf::Color::Black);
 	Outline4.setPosition(sf::Vector2f(0, Height - 10));
 	Outline4.setSize(sf::Vector2f(Width, 10));
 	Outline4.setFillColor(sf::Color::Cyan);
+	Outline4.setOutlineThickness(3);
+	Outline4.setOutlineColor(sf::Color::Black);
+	middle.setSize(sf::Vector2f(5, Height));
+	middle.setFillColor(sf::Color::White);
+	middle.setPosition(sf::Vector2f(Width / 2, 0));
+	middle.setOutlineThickness(3);
+	middle.setOutlineColor(sf::Color::Black);
 }
 /*Hàm tạo tường gai trên màn hình chơi*/
 void Game::CreateBard()
@@ -65,6 +87,8 @@ void Game::CreateBard()
 		Bard[i].setRadius(10);
 		Bard[i].setPosition(sf::Vector2f(0, pos));
 		Bard[i].setFillColor(sf::Color::Cyan);
+		Bard[i].setOutlineThickness(3);
+		Bard[i].setOutlineColor(sf::Color::Black);
 		pos += 20;
 	}
 	pos = 10;
@@ -74,6 +98,8 @@ void Game::CreateBard()
 		Bard[i].setRadius(10);
 		Bard[i].setPosition(sf::Vector2f(Width - 20, pos));
 		Bard[i].setFillColor(sf::Color::Cyan);
+		Bard[i].setOutlineThickness(3);
+		Bard[i].setOutlineColor(sf::Color::Black);
 		pos += 20;
 	}
 }
@@ -92,6 +118,7 @@ void Game::DrawBard()
 /*Hàm vẽ đường bao màn hình*/
 void Game::DrawOutline()
 {
+	Window.draw(middle);
 	Window.draw(Outline1);
 	Window.draw(Outline2);
 	Window.draw(Outline3);
@@ -102,7 +129,6 @@ void Game::DrawText()
 {
 	Window.draw(Player1Point);
 	Window.draw(Player2Point);
-	Window.draw(middle);
 	Window.draw(text);
 	Window.draw(Exit);
 	Window.draw(Winner);
@@ -378,6 +404,7 @@ void Game::update(sf::Time deltatime)
 void Game::render()
 {
 	Window.clear();
+	Window.draw(sprite);
 	Window.draw(ball);
 	DrawPaddle();
 	DrawBard();

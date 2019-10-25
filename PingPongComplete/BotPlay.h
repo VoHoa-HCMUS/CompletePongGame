@@ -19,6 +19,7 @@ private:
 	sf::RectangleShape Outline2;
 	sf::RectangleShape Outline3;
 	sf::RectangleShape Outline4;
+	sf::RectangleShape middle;
 	sf::CircleShape Bard[60];
 	sf::Font font;
 	sf::Text text;
@@ -26,8 +27,9 @@ private:
 	sf::Text Winner;
 	sf::Text YourPoint;
 	sf::Text BotPoint;
-	sf::Text middle;
 	sf::Time Fps;
+	sf::Texture BackGround;
+	sf::Sprite sprite;
 	int iYourPoint;
 	int iBotPoint;
 public:
