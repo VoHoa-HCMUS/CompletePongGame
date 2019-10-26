@@ -54,6 +54,7 @@ int main()
 					}
 					case 2:
 						MenuWindow.close();
+						break;
 					}
 				}
 				break;
