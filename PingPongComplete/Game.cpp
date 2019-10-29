@@ -345,11 +345,14 @@ void Game::RestartGame(sf::Time deltatime)
 {
 	/*Khởi tạo góc của trái banh so với gốc tọa độ*/
 	float BallAngle = 0.f;
+	srand(time(NULL));
+	int degAngle[6] = {45, 315, 225, 135, 198, 18};
+	int startAngle = degAngle[rand() % 6];
 	/*Khởi tạo tốc độ trái banh như cũ*/
 	float OldSpeed = 400.f;
 	srand(time(NULL));
 	/*Random ngẫu nhiên góc trái banh so với gốc tọa độ*/
-	BallAngle = (float)(rand() % 1200 * 2) / (float)(1200);
+	BallAngle = startAngle * 3.14 / 180;;
 	/*Set lại tốc độ ban đầu của trái banh*/
 	ball.SetSpeed(OldSpeed);
 	/*Đặt lại trái banh về vị trí ban đầu*/
