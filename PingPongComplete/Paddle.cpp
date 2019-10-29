@@ -32,6 +32,8 @@ float Paddle::GetSpeed()
 Paddle::Paddle()
 {
 	RectangleShape::setSize(sf::Vector2f(20, 150));
+	RectangleShape::setOutlineThickness(3);
+	RectangleShape::setOutlineColor(sf::Color::Black);
 	Speed = 400.f;
 	Up = false;
 	Down = false;

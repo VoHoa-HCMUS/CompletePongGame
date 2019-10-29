@@ -22,16 +22,13 @@ float Ball::GetSpeed()
 /*Constructor của trái banh*/
 Ball::Ball()
 {
-	srand(time(NULL));
-	int degAngle[6] = {45, 315, 225, 135, 198, 18};
-	int startAngle = degAngle[rand() % 6];
 	Radius = 10.f;
 	CircleShape::setRadius(Radius);
 	CircleShape::setOrigin(10.f, 10.f);
 	CircleShape::setOutlineThickness(3);
-	CircleShape::setOutlineColor(sf::Color::Blue);
+	CircleShape::setOutlineColor(sf::Color::Black);
 	CircleShape::setFillColor(sf::Color::White);
-	CircleShape::setPosition(500, 300);
+	CircleShape::setPosition(400, 300);
 	Speed = 400.f;
-	BallAngel = startAngle * 3.14 / 180; // Chuyen Deg sang Radian
+	BallAngel = 0.3f;
 }
