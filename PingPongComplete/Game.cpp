@@ -152,6 +152,35 @@ Game::Game()
 	/*Khởi tạo cửa sổ chơi*/
 	Window.create(sf::VideoMode(Width, Height), "PingPong");
 }
+
+void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
+	float layer1 = 25; float layer2 = 50;
+	float strike1 = 19 * pi / 180; float strike2 = 34 * pi / 180; float strike3 = 57 * pi / 180;
+	float ballY = ball.getPosition().y + ball.getRadius();
+	float mid = p.getPosition().y + p.getSize().y / 2;
+	float convCurAngle = ball.GetAngle() * 180 / pi;
+
+	if (pc == 1) { //di chuyen sang trai
+		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
+		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
+
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(-strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(strike2);
+
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
+	} else if (pc == 2) { //di chuyen sang phai
+		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
+		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
+
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(pi + strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(pi - strike2);
+
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(pi + strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(pi - strike3);
+	}
+}
+
 /*Hàm di chuyển trái banh*/
 void Game::MoveBall(sf::Time deltatime)
 {
@@ -159,6 +188,7 @@ void Game::MoveBall(sf::Time deltatime)
 	float factor = ball.GetSpeed() * deltatime.asSeconds();
 	/*Di chuyển trái banh theo hướng cuar2 vector tạo bởi góc trái banh so với trục tọa độ*/
 	ball.move(sf::Vector2f(cos(ball.GetAngle()) * factor, sin(ball.GetAngle()) * factor));
+	cout << ball.GetAngle() << endl;
 	/*Kiểm tra banh chạm Paddle bên trái*/
 	if (TouchPaddleLeft())
 	{
@@ -166,14 +196,16 @@ void Game::MoveBall(sf::Time deltatime)
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		/*Thay đổi góc trái banh so với trục tọa độ*/
-		ball.SetAngle(pi - ball.GetAngle());
+		//ball.SetAngle(pi - ball.GetAngle());
+		StrikeAngle(1, PaddleLeft, ball);
 	}
 	/*Kiểm tra banh chạm Paddle bên phải*/
 	if (TouchPaddleRight())
 	{
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
-		ball.SetAngle(pi - ball.GetAngle());
+		//ball.SetAngle(pi - ball.GetAngle());
+		StrikeAngle(2, PaddleRight, ball);
 	}
 	/*Kiểm tra banh chạm tường trên và dưới*/
 	if (TouchWall())
@@ -215,7 +247,7 @@ bool Game::TouchPaddleLeft()
 	float PaddleLong = PaddleLeft.getSize().y;
 	/*Nếu tọa độ x của trái banh bé hơn hoành độ của Paddle + 30 
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball <= xPaddleLeft + 30 && yball >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong);
+	return(xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong) || (xball < xPaddleLeft + 30 && yball >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong);
 }
 /*Hàm kiểm tra banh chạm Paddle trái*/
 bool Game::TouchPaddleRight()
@@ -227,13 +259,13 @@ bool Game::TouchPaddleRight()
 	float PaddleLong = PaddleRight.getSize().y;
 	/*Nếu hoành độ của trái banh lớn hơn tọa độ x của Paddle - 10 và 
 	tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball >= xPaddleRight-10 && yball >= yPaddleRight && yball <= yPaddleRight + PaddleLong);
+	return(xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) || (xball > xPaddleRight - 10 && yball >= xPaddleRight && yball <= xPaddleRight + PaddleLong);
 }
 /*Hàm kiểm tra trái banh chạm tường gai*/
 void Game::TouchBard()
 {
 	/*Nếu trái bay chạm tường gai trái tăng điểm player2*/
-	if (ball.getPosition().x < 20 )
+	if (ball.getPosition().x - ball.getRadius() < 20 )
 	{
 		iPlayer2Point++;
 		/*Hiển thị điểm lên màn hình*/
@@ -242,7 +274,7 @@ void Game::TouchBard()
 		RestartGame(Fps);
 	}
 	/*Nếu trái bay chạm tường gai phải tăng điểm player1*/
-	if (ball.getPosition().x > 980)
+	if (ball.getPosition().x + ball.getRadius() > 980)
 	{
 		iPlayer1Point++;
 		DisplayScore();
