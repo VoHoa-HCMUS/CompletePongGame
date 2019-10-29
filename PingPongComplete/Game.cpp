@@ -197,7 +197,7 @@ void Game::MoveBall(sf::Time deltatime)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		/*Thay đổi góc trái banh so với trục tọa độ*/
 		StrikeAngle(1, PaddleLeft, ball);
-	} else {
+	} else if (TouchPaddleLeft() == 2) {
 		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm Paddle bên phải*/
@@ -206,7 +206,7 @@ void Game::MoveBall(sf::Time deltatime)
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		StrikeAngle(2, PaddleRight, ball);
-	} else {
+	} else if (TouchPaddleRight() == 2) {
 		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm tường trên và dưới*/
@@ -249,8 +249,8 @@ int Game::TouchPaddleLeft()
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
 	if (xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong)
 		return 1;
-	if ((xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball < yPaddleLeft + 20)
-		|| (xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball <= yPaddleLeft + PaddleLong && yball > yPaddleLeft + PaddleLong - 20))
+	if ((xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball + ball.getRadius() * 2 >= yPaddleLeft && yball < yPaddleLeft + 20)
+		|| (xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball <= yPaddleLeft + PaddleLong + 10 && yball > yPaddleLeft + PaddleLong - 20))
 		return 2;
 }
 /*Hàm kiểm tra banh chạm Paddle trái*/
@@ -266,15 +266,15 @@ int Game::TouchPaddleRight()
 	if (xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) {
 		return 1;
 	} 
-	if ((xball >= xPaddleRight + 20 && xball <= xPaddleRight && yball + ball.getRadius() + 20 >= yPaddleRight && yball < yPaddleRight + 20)
-		|| (xball >= xPaddleRight + 20 && xball <= xPaddleRight && yball <= yPaddleRight + PaddleLong && yball > yPaddleRight + PaddleLong - 20))
+	if ((xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball + ball.getRadius() * 2 >= yPaddleRight && yball < yPaddleRight + 20)
+		|| (xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball <= yPaddleRight + PaddleLong + 10 && yball > yPaddleRight + PaddleLong - 20))
 		return 2;
 }
 /*Hàm kiểm tra trái banh chạm tường gai*/
 void Game::TouchBard()
 {
 	/*Nếu trái bay chạm tường gai trái tăng điểm player2*/
-	if (ball.getPosition().x - ball.getRadius() < 20 )
+	if (ball.getPosition().x < 20 )
 	{
 		iPlayer2Point++;
 		/*Hiển thị điểm lên màn hình*/
