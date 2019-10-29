@@ -348,7 +348,7 @@ bool Game::LoseTheGame()
 /*Hàm hiển thị người chơi dành chiến thắng*/
 void Game::WinnerDisplay()
 {
-	text.setString("Press space to play again");
+	text.setString("Press Space to play again");
 	Exit.setString("Esc to exit mode");
 	/*Hiển thị người chơi chiến thắng*/
 	if (iPlayer1Point == 10)

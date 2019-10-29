@@ -299,7 +299,7 @@ bool BotPlay::LoseTheGame()
 /*Hàm hiển thị người chơi dành chiến thắng*/
 void BotPlay::WinnerDisplay()
 {
-	text.setString("Press space to play again");
+	text.setString("Press Space to play again");
 	Exit.setString("Esc to exit mode");
 	/*Hiển thị người chơi chiến thắng*/
 	if (iYourPoint == 10)
@@ -311,7 +311,7 @@ void BotPlay::WinnerDisplay()
 	else
 	{
 		ball.setPosition(1000, 10);
-		Winner.setString("Bot Win :(");
+		Winner.setString("Bot Win, HaHa You Noob :p");
 	}
 }
 /*Hàm khởi tạo lại màn hình chơi*/
