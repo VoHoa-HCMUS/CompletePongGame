@@ -41,8 +41,8 @@ public:
 	void StrikeAngle(int pc, Paddle p, Ball &ball);
 	void MoveBall(sf::Time deltatime);
 	void MovePaddle(sf::Time deltatime);
-	bool TouchPaddleLeft();
-	bool TouchPaddleRight();
+	int TouchPaddleLeft();
+	int TouchPaddleRight();
 	bool TouchWall();
 	void TouchBard();
 	void PressedKey(sf::Keyboard::Key key, bool Pressed, bool& CloseMode);

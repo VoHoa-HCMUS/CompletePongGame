@@ -190,28 +190,28 @@ void Game::MoveBall(sf::Time deltatime)
 	ball.move(sf::Vector2f(cos(ball.GetAngle()) * factor, sin(ball.GetAngle()) * factor));
 	cout << ball.GetAngle() << endl;
 	/*Kiểm tra banh chạm Paddle bên trái*/
-	if (TouchPaddleLeft())
+	if (TouchPaddleLeft() == 1)
 	{
 		/*Nếu tốc độ trái banh chưa vượt quá 800 tăng tốc độ trái banh lên 10%*/
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		/*Thay đổi góc trái banh so với trục tọa độ*/
-		//ball.SetAngle(pi - ball.GetAngle());
 		StrikeAngle(1, PaddleLeft, ball);
+	} else {
+		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm Paddle bên phải*/
-	if (TouchPaddleRight())
+	if (TouchPaddleRight() == 1)
 	{
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
-		//ball.SetAngle(pi - ball.GetAngle());
 		StrikeAngle(2, PaddleRight, ball);
+	} else {
+		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm tường trên và dưới*/
 	if (TouchWall())
 	{
-		if (ball.GetSpeed() < 800.f)
-			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		ball.SetAngle(-ball.GetAngle());
 	}
 }
@@ -238,7 +238,7 @@ void Game::MovePaddle(sf::Time deltatime)
 	}
 }
 /*Hàm kiểm tra banh chạm Paddle trái*/
-bool Game::TouchPaddleLeft()
+int Game::TouchPaddleLeft()
 {
 	float xPaddleLeft = PaddleLeft.getPosition().x;
 	float yball = ball.getPosition().y;
@@ -247,10 +247,14 @@ bool Game::TouchPaddleLeft()
 	float PaddleLong = PaddleLeft.getSize().y;
 	/*Nếu tọa độ x của trái banh bé hơn hoành độ của Paddle + 30 
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong) || (xball < xPaddleLeft + 30 && yball >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong);
+	if (xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong)
+		return 1;
+	if ((xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball < yPaddleLeft + 20)
+		|| (xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball <= yPaddleLeft + PaddleLong && yball > yPaddleLeft + PaddleLong - 20))
+		return 2;
 }
 /*Hàm kiểm tra banh chạm Paddle trái*/
-bool Game::TouchPaddleRight()
+int Game::TouchPaddleRight()
 {
 	float xPaddleRight = PaddleRight.getPosition().x;
 	float yball = ball.getPosition().y;
@@ -259,7 +263,12 @@ bool Game::TouchPaddleRight()
 	float PaddleLong = PaddleRight.getSize().y;
 	/*Nếu hoành độ của trái banh lớn hơn tọa độ x của Paddle - 10 và 
 	tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) || (xball > xPaddleRight - 10 && yball >= xPaddleRight && yball <= xPaddleRight + PaddleLong);
+	if (xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) {
+		return 1;
+	} 
+	if ((xball >= xPaddleRight + 20 && xball <= xPaddleRight && yball + ball.getRadius() + 20 >= yPaddleRight && yball < yPaddleRight + 20)
+		|| (xball >= xPaddleRight + 20 && xball <= xPaddleRight && yball <= yPaddleRight + PaddleLong && yball > yPaddleRight + PaddleLong - 20))
+		return 2;
 }
 /*Hàm kiểm tra trái banh chạm tường gai*/
 void Game::TouchBard()
