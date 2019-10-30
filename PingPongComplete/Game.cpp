@@ -161,7 +161,8 @@ set goc trai banh khi cham vo tung phan tren paddle
 |   | strike2
 |   | strike3
 */
-void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
+void Game::StrikeAngle(int pc, Paddle p, Ball &ball) 
+{
 	float layer1 = 25; float layer2 = 50;
 	float ballY = ball.getPosition().y + ball.getRadius();
 	float mid = p.getPosition().y + p.getSize().y / 2;
@@ -172,7 +173,8 @@ void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 	// Goc bat khac nhau cho trai banh
 	float strike1 = (19 + x) * pi / 180; float strike2 = (40 + x) * pi / 180; float strike3 = (57 + x) * pi / 180;
 
-	if (pc == 1) { //banh di chuyen sang trai
+	if (pc == 1) 
+	{ //banh di chuyen sang trai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
 
@@ -181,7 +183,9 @@ void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 
 		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
 		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
-	} else if (pc == 2) { //banh di chuyen sang phai
+	} 
+	else if (pc == 2) 
+	{ //banh di chuyen sang phai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
 
@@ -277,9 +281,8 @@ int Game::TouchPaddleRight()
 	float PaddleLong = PaddleRight.getSize().y;
 	/*Nếu hoành độ của trái banh lớn hơn tọa độ x của Paddle - 10 và 
 	tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	if (xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) {
+	if (xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) 
 		return 1;
-	} 
 	/*Kiem tra banh co cham top hoac bottom cua paddle*/
 	if ((xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball + ball.getRadius() * 2 >= yPaddleRight && yball < yPaddleRight + 20)
 		|| (xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball <= yPaddleRight + PaddleLong + 10 && yball > yPaddleRight + PaddleLong - 20))
