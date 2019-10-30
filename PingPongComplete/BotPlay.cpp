@@ -181,6 +181,22 @@ void BotPlay::MoveBall(sf::Time deltatime)
 		ball.SetAngle(-ball.GetAngle());
 	}
 }
+void BotPlay::SkyNet(sf::Time deltatime) {
+	srand(time(NULL));
+	int target = rand() % 145 + 5;
+	float xball = ball.getPosition().x;
+	float yball = ball.getPosition().y;
+	float yPaddle = BotPaddle.getPosition().y;
+	float height = BotPaddle.getSize().y;
+
+	if (xball >= Width / 2.5) {
+		if (yball < yPaddle + target && yPaddle > 20) {
+			BotPaddle.move(0.f, -BotPaddle.GetSpeed() * deltatime.asSeconds());
+		} else if (yball > yPaddle + height - target && yPaddle < 430) {
+			BotPaddle.move(0.f, BotPaddle.GetSpeed() * deltatime.asSeconds());
+		}
+	}
+}
 /*Hàm di chuyển Paddle*/
 void BotPlay::MovePaddle(sf::Time deltatime)
 {
@@ -195,11 +211,14 @@ void BotPlay::MovePaddle(sf::Time deltatime)
 		YourPaddle.move(0.f, YourPaddle.GetSpeed() * deltatime.asSeconds());
 	}
 	/*Nếu tung độ của ball lớn hơn tung độ Paddle+tung độ điểm giữa Paddle+1, di chuyển Bot Paddle đi lên*/
-	if (ball.getPosition().y > BotPaddle.getPosition().y + BotPaddle.getSize().y/2 && BotPaddle.getPosition().y < 430)
-		BotPaddle.move(0.f, 195.f* deltatime.asSeconds());
+	/*if (ball.getPosition().y > BotPaddle.getPosition().y + BotPaddle.getSize().y/2 && BotPaddle.getPosition().y < 430)
+		BotPaddle.move(0.f, 195.f* deltatime.asSeconds());*/
 	/*Nếu tung độ của ball bé hơn tung độ Paddle+tung độ điểm giữa Paddle, di chuyển Bot Paddle đi xuống*/
-	if (ball.getPosition().y < BotPaddle.getPosition().y + BotPaddle.getSize().y / 2 && BotPaddle.getPosition().y > 20)
-		BotPaddle.move(0.f, -195.f* deltatime.asSeconds());
+	/*if (ball.getPosition().y < BotPaddle.getPosition().y + BotPaddle.getSize().y / 2 && BotPaddle.getPosition().y > 20)
+		BotPaddle.move(0.f, -195.f* deltatime.asSeconds());*/
+
+	//Super advanced AI technology
+	SkyNet(deltatime);
 }
 /*Hàm kiểm tra banh chạm Paddle của bạn*/
 bool BotPlay::TouchYourPaddle()
@@ -311,7 +330,7 @@ void BotPlay::WinnerDisplay()
 	else
 	{
 		ball.setPosition(1000, 10);
-		Winner.setString("Bot Win, HaHa You Noob :p");
+		Winner.setString("Bot Win :p");
 	}
 }
 /*Hàm khởi tạo lại màn hình chơi*/

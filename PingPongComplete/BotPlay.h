@@ -43,6 +43,7 @@ public:
 	void DrawText();
 	void DrawPaddle();
 	void MoveBall(sf::Time deltatime);
+	void SkyNet(sf::Time deltatime);
 	void MovePaddle(sf::Time deltatime);
 	bool TouchYourPaddle();
 	bool TouchBotPaddle();
