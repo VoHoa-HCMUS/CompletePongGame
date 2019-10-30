@@ -152,7 +152,15 @@ Game::Game()
 	/*Khởi tạo cửa sổ chơi*/
 	Window.create(sf::VideoMode(Width, Height), "PingPong");
 }
+/*
+set goc trai banh khi cham vo tung phan tren paddle
 
+|   | strike3
+|   | strike2
+|mid| strike1
+|   | strike2
+|   | strike3
+*/
 void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 	float layer1 = 25; float layer2 = 50;
 	float ballY = ball.getPosition().y + ball.getRadius();
@@ -252,6 +260,7 @@ int Game::TouchPaddleLeft()
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
 	if (xball <= xPaddleLeft + 20 && yball + ball.getRadius() >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong)
 		return 1;
+	/*Kiem tra banh co cham top hoac bottom cua paddle*/
 	if ((xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball + ball.getRadius() * 2 >= yPaddleLeft && yball < yPaddleLeft + 20)
 		|| (xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball <= yPaddleLeft + PaddleLong + 10 && yball > yPaddleLeft + PaddleLong - 20))
 		return 2;
@@ -269,6 +278,7 @@ int Game::TouchPaddleRight()
 	if (xball >= xPaddleRight - 10 && yball + ball.getRadius() >= yPaddleRight && yball <= yPaddleRight + PaddleLong) {
 		return 1;
 	} 
+	/*Kiem tra banh co cham top hoac bottom cua paddle*/
 	if ((xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball + ball.getRadius() * 2 >= yPaddleRight && yball < yPaddleRight + 20)
 		|| (xball >= xPaddleRight - 10 && xball <= xPaddleRight + 20 && yball <= yPaddleRight + PaddleLong + 10 && yball > yPaddleRight + PaddleLong - 20))
 		return 2;
