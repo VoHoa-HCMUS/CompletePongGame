@@ -8,16 +8,24 @@ int main()
 	while (MenuWindow.isOpen())
 	{
 		sf::Event event;
-		while (MenuWindow.pollEvent(event)) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+		while (MenuWindow.pollEvent(event))
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+			{
 				menu.MoveUp();
 				break;
-			} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+			} 
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) 
+			{
 				menu.MoveDown();
 				break;
-			} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
-				switch (menu.YourOption()) {
-					case 0: {
+			} 
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+			{
+				switch (menu.YourOption()) 
+				{
+					case 0: 
+					{
 						bool CloseMode = false;
 						MenuWindow.close();
 						BotPlay game;
@@ -28,7 +36,8 @@ int main()
 							goto MenuOp;
 						break;
 					}
-					case 1: {
+					case 1: 
+					{
 						bool CloseMode = false;
 						MenuWindow.close();
 						Game game;
@@ -37,13 +46,15 @@ int main()
 							goto MenuOp;
 						break;
 					}
-					case 2: {
+					case 2: 
+					{
 						MenuWindow.close();
 						break;
 					}
 				}
 			}
-			if (event.type == sf::Event::Closed) {
+			if (event.type == sf::Event::Closed) 
+			{
 				MenuWindow.close();
 			}
 		}

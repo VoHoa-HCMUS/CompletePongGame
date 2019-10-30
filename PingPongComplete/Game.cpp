@@ -175,25 +175,33 @@ void Game::StrikeAngle(int pc, Paddle p, Ball &ball)
 
 	if (pc == 1) 
 	{ //banh di chuyen sang trai
-		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
-		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
-
-		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(-strike2);
-		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(strike2);
-
-		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
-		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
+		if (mid - layer1 <= ballY && ballY <= mid) 
+			ball.SetAngle(-strike1);
+		else if (mid <= ballY && ballY < mid + layer1) 
+			ball.SetAngle(strike1);
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) 
+			ball.SetAngle(-strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) 
+			ball.SetAngle(strike2);
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) 
+			ball.SetAngle(-strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) 
+			ball.SetAngle(strike3);
 	} 
 	else if (pc == 2) 
 	{ //banh di chuyen sang phai
-		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
-		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
-
-		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(pi + strike2);
-		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(pi - strike2);
-
-		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(pi + strike3);
-		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(pi - strike3);
+		if (mid - layer1 <= ballY && ballY <= mid) 
+			ball.SetAngle(pi + strike1);
+		else if (mid <= ballY && ballY < mid + layer1) 
+			ball.SetAngle(pi - strike1);
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1)
+			ball.SetAngle(pi + strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) 
+			ball.SetAngle(pi - strike2);
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) 
+			ball.SetAngle(pi + strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) 
+			ball.SetAngle(pi - strike3);
 	}
 }
 
@@ -212,25 +220,21 @@ void Game::MoveBall(sf::Time deltatime)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		/*Thay đổi góc trái banh so với trục tọa độ*/
 		StrikeAngle(1, PaddleLeft, ball);
-	} else if (TouchPaddleLeft() == 2) {
+	} 
+	else 
 		ball.SetAngle(-ball.GetAngle());
-	}
 	/*Kiểm tra banh chạm Paddle bên phải*/
 	if (TouchPaddleRight() == 1)
 	{
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		StrikeAngle(2, PaddleRight, ball);
-	} 
-	else if (TouchPaddleRight() == 2) 
-	{
-		ball.SetAngle(-ball.GetAngle());
 	}
+	else
+		ball.SetAngle(-ball.GetAngle());
 	/*Kiểm tra banh chạm tường trên và dưới*/
 	if (TouchWall())
-	{
 		ball.SetAngle(-ball.GetAngle());
-	}
 }
 /*Hàm di chuyển Paddle*/
 void Game::MovePaddle(sf::Time deltatime)
@@ -427,7 +431,8 @@ void Game::RestartGame(sf::Time deltatime)
 void Game::processEvents(bool& CloseMode)
 {
 	sf::Event event;
-	while (Window.pollEvent(event)) {
+	while (Window.pollEvent(event)) 
+	{
 		switch (event.type)
 		{
 		case sf::Event::Closed:
@@ -478,7 +483,8 @@ void Game::run(bool& CloseMode)
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	/*Trong khi cửa sổ chơi còn mở gọi hàm xử lý nhập và thả phím của người dùng, hàm xử lý game, hàm vẽ màn hình chơi*/
-	while (Window.isOpen()) {
+	while (Window.isOpen()) 
+	{
 		processEvents(CloseMode);
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > Fps) {
