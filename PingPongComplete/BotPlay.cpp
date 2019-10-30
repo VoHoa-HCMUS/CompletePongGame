@@ -167,13 +167,12 @@ void BotPlay::StrikeAngle(int pc, Paddle p, Ball& ball) {
 	float ballY = ball.getPosition().y + ball.getRadius();
 	float mid = p.getPosition().y + p.getSize().y / 2;
 	float convCurAngle = ball.GetAngle() * 180 / pi;
-
-	srand(time(NULL));
+        srand(time(NULL));
 	int x = rand() % 15 + 0;
 	// Goc bat khac nhau cho trai banh
 	float strike1 = (19 + x) * pi / 180; float strike2 = (40 + x) * pi / 180; float strike3 = (57 + x) * pi / 180;
-
-	if (pc == 1) { //banh di chuyen sang trai
+	if (pc == 1) 
+	{ //banh di chuyen sang trai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
 
@@ -182,7 +181,9 @@ void BotPlay::StrikeAngle(int pc, Paddle p, Ball& ball) {
 
 		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
 		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
-	} else if (pc == 2) { //banh di chuyen sang phai
+	} 
+	else if (pc == 2) 
+	{ //banh di chuyen sang phai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
 
@@ -263,8 +264,8 @@ void BotPlay::MovePaddle(sf::Time deltatime)
 	/*if (ball.getPosition().y < BotPaddle.getPosition().y + BotPaddle.getSize().y / 2 && BotPaddle.getPosition().y > 20)
 		BotPaddle.move(0.f, -195.f* deltatime.asSeconds());*/
 
-	//Super advanced AI technology
-	SkyNet(deltatime);
+	//Di chuyển BotPaddle
+	MoveBotPaddle(deltatime);
 }
 /*Hàm kiểm tra banh chạm Paddle của bạn*/
 bool BotPlay::TouchYourPaddle()
@@ -488,10 +489,12 @@ void BotPlay::run(bool& CloseMode)
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	/*Trong khi cửa sổ chơi còn mở gọi hàm xử lý nhập và thả phím của người dùng, hàm xử lý game, hàm vẽ màn hình chơi*/
-	while (Window.isOpen()) {
+	while (Window.isOpen()) 
+	{
 		processEvents(CloseMode);
 		timeSinceLastUpdate += clock.restart();
-		while (timeSinceLastUpdate > Fps) {
+		while (timeSinceLastUpdate > Fps) 
+		{
 			timeSinceLastUpdate -= Fps;
 			processEvents(CloseMode);
 			update(Fps);
