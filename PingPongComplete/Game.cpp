@@ -217,7 +217,9 @@ void Game::MoveBall(sf::Time deltatime)
 		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		StrikeAngle(2, PaddleRight, ball);
-	} else if (TouchPaddleRight() == 2) {
+	} 
+	else if (TouchPaddleRight() == 2) 
+	{
 		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm tường trên và dưới*/
