@@ -226,6 +226,7 @@ void BotPlay::MoveBall(sf::Time deltatime)
 		ball.SetAngle(-ball.GetAngle());
 	}
 }
+/*Cho bot paddle chay theo trai banh va cham banh tai 1 diem random trong khoang height cuar paddle*/
 void BotPlay::SkyNet(sf::Time deltatime) {
 	srand(time(NULL));
 	int target = rand() % 145 + 5;
