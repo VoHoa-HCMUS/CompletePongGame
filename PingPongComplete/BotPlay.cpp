@@ -264,8 +264,8 @@ void BotPlay::MovePaddle(sf::Time deltatime)
 	/*if (ball.getPosition().y < BotPaddle.getPosition().y + BotPaddle.getSize().y / 2 && BotPaddle.getPosition().y > 20)
 		BotPaddle.move(0.f, -195.f* deltatime.asSeconds());*/
 
-	//Super advanced AI technology
-	SkyNet(deltatime);
+	//Di chuyển BotPaddle
+	MoveBotPaddle(deltatime);
 }
 /*Hàm kiểm tra banh chạm Paddle của bạn*/
 bool BotPlay::TouchYourPaddle()
