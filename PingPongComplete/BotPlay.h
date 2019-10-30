@@ -42,6 +42,7 @@ public:
 	void DrawOutline();
 	void DrawText();
 	void DrawPaddle();
+	void StrikeAngle(int pc, Paddle p, Ball& ball);
 	void MoveBall(sf::Time deltatime);
 	void SkyNet(sf::Time deltatime);
 	void MovePaddle(sf::Time deltatime);

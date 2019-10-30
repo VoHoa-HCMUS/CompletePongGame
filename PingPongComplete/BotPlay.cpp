@@ -152,6 +152,47 @@ BotPlay::BotPlay()
 	/*Khởi tạo cửa sổ chơi*/
 	Window.create(sf::VideoMode(Width, Height), "PingPong");
 }
+
+/*
+set goc trai banh khi cham vo tung phan tren paddle
+
+|   | strike3
+|   | strike2
+|mid| strike1
+|   | strike2
+|   | strike3
+*/
+void BotPlay::StrikeAngle(int pc, Paddle p, Ball& ball) {
+	float layer1 = 25; float layer2 = 50;
+	float ballY = ball.getPosition().y + ball.getRadius();
+	float mid = p.getPosition().y + p.getSize().y / 2;
+	float convCurAngle = ball.GetAngle() * 180 / pi;
+
+	srand(time(NULL));
+	int x = rand() % 15 + 0;
+	// Goc bat khac nhau cho trai banh
+	float strike1 = (19 + x) * pi / 180; float strike2 = (40 + x) * pi / 180; float strike3 = (57 + x) * pi / 180;
+
+	if (pc == 1) { //banh di chuyen sang trai
+		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
+		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
+
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(-strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(strike2);
+
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
+	} else if (pc == 2) { //banh di chuyen sang phai
+		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
+		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
+
+		else if (mid - layer1 - layer2 <= ballY && ballY <= mid - layer1) ball.SetAngle(pi + strike2);
+		else if (mid + layer1 < ballY && ballY <= mid + layer1 + layer2) ball.SetAngle(pi - strike2);
+
+		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(pi + strike3);
+		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(pi - strike3);
+	}
+}
 /*Hàm di chuyển trái banh*/
 void BotPlay::MoveBall(sf::Time deltatime)
 {
@@ -160,20 +201,24 @@ void BotPlay::MoveBall(sf::Time deltatime)
 	/*Di chuyển trái banh theo hướng cuar2 vector tạo bởi góc trái banh so với trục tọa độ*/
 	ball.move(sf::Vector2f(cos(ball.GetAngle()) * factor, sin(ball.GetAngle()) * factor));
 	/*Kiểm tra banh chạm Paddle của bạn*/
-	if (TouchYourPaddle())
-	{
+	if (TouchYourPaddle() == 1) {
 		/*Nếu tốc độ trái banh chưa vượt quá 800 tăng tốc độ trái banh lên 10%*/
-		if (ball.GetSpeed() < 1500.f)
+		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
 		/*Thay đổi góc trái banh so với trục tọa độ*/
-		ball.SetAngle(pi - ball.GetAngle());
+		StrikeAngle(1, YourPaddle, ball);
+	} else if (TouchYourPaddle() == 2) {
+		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm Bot Paddle*/
-	if (TouchBotPaddle())
+	if (TouchBotPaddle() == 1)
 	{
-		if (ball.GetSpeed() < 1500.f)
+		if (ball.GetSpeed() < 800.f)
 			ball.SetSpeed(ball.GetSpeed() * 1.1);
-		ball.SetAngle(pi - ball.GetAngle());
+		/*Thay đổi góc trái banh so với trục tọa độ*/
+		StrikeAngle(2, BotPaddle, ball);
+	} else if (TouchBotPaddle() == 2) {
+		ball.SetAngle(-ball.GetAngle());
 	}
 	/*Kiểm tra banh chạm tường trên và dưới*/
 	if (TouchWall())

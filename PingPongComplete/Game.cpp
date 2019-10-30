@@ -169,9 +169,10 @@ void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 
 	srand(time(NULL));
 	int x = rand() % 15 + 0;
+	// Goc bat khac nhau cho trai banh
 	float strike1 = (19 + x) * pi / 180; float strike2 = (40 + x) * pi / 180; float strike3 = (57 + x) * pi / 180;
 
-	if (pc == 1) { //di chuyen sang trai
+	if (pc == 1) { //banh di chuyen sang trai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(strike1);
 
@@ -180,7 +181,7 @@ void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 
 		else if (mid - layer1 - 2 * layer2 <= ballY && ballY <= mid - layer1 - layer2) ball.SetAngle(-strike3);
 		else if (mid + layer1 + layer2 < ballY && ballY <= mid + layer1 + 2 * layer2) ball.SetAngle(strike3);
-	} else if (pc == 2) { //di chuyen sang phai
+	} else if (pc == 2) { //banh di chuyen sang phai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(pi + strike1);
 		else if (mid <= ballY && ballY < mid + layer1) ball.SetAngle(pi - strike1);
 
@@ -199,7 +200,6 @@ void Game::MoveBall(sf::Time deltatime)
 	float factor = ball.GetSpeed() * deltatime.asSeconds();
 	/*Di chuyển trái banh theo hướng cuar2 vector tạo bởi góc trái banh so với trục tọa độ*/
 	ball.move(sf::Vector2f(cos(ball.GetAngle()) * factor, sin(ball.GetAngle()) * factor));
-	cout << ball.GetAngle() << endl;
 	/*Kiểm tra banh chạm Paddle bên trái*/
 	if (TouchPaddleLeft() == 1)
 	{
