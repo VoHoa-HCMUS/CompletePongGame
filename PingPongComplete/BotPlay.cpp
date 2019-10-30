@@ -228,7 +228,7 @@ void BotPlay::MoveBall(sf::Time deltatime)
 	}
 }
 /*Cho bot paddle chay theo trai banh va cham banh tai 1 diem random trong khoang height cuar paddle*/
-void BotPlay::SkyNet(sf::Time deltatime) {
+void BotPlay::MoveBotPaddle(sf::Time deltatime) {
 	srand(time(NULL));
 	int target = rand() % 145 + 5;
 	float xball = ball.getPosition().x;
@@ -258,11 +258,6 @@ void BotPlay::MovePaddle(sf::Time deltatime)
 		YourPaddle.move(0.f, YourPaddle.GetSpeed() * deltatime.asSeconds());
 	}
 	/*Nếu tung độ của ball lớn hơn tung độ Paddle+tung độ điểm giữa Paddle+1, di chuyển Bot Paddle đi lên*/
-	/*if (ball.getPosition().y > BotPaddle.getPosition().y + BotPaddle.getSize().y/2 && BotPaddle.getPosition().y < 430)
-		BotPaddle.move(0.f, 195.f* deltatime.asSeconds());*/
-	/*Nếu tung độ của ball bé hơn tung độ Paddle+tung độ điểm giữa Paddle, di chuyển Bot Paddle đi xuống*/
-	/*if (ball.getPosition().y < BotPaddle.getPosition().y + BotPaddle.getSize().y / 2 && BotPaddle.getPosition().y > 20)
-		BotPaddle.move(0.f, -195.f* deltatime.asSeconds());*/
 
 	//Di chuyển BotPaddle
 	MoveBotPaddle(deltatime);
