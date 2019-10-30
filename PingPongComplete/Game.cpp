@@ -250,7 +250,7 @@ int Game::TouchPaddleLeft()
 	float PaddleLong = PaddleLeft.getSize().y;
 	/*Nếu tọa độ x của trái banh bé hơn hoành độ của Paddle + 30 
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	if (xball <= xPaddleLeft + 30 && yball + ball.getRadius() + 20 >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong)
+	if (xball <= xPaddleLeft + 20 && yball + ball.getRadius() >= yPaddleLeft && yball <= yPaddleLeft + PaddleLong)
 		return 1;
 	if ((xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball + ball.getRadius() * 2 >= yPaddleLeft && yball < yPaddleLeft + 20)
 		|| (xball >= xPaddleLeft && xball <= xPaddleLeft + 30 && yball <= yPaddleLeft + PaddleLong + 10 && yball > yPaddleLeft + PaddleLong - 20))
