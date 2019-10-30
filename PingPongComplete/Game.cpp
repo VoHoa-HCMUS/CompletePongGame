@@ -155,10 +155,13 @@ Game::Game()
 
 void Game::StrikeAngle(int pc, Paddle p, Ball &ball) {
 	float layer1 = 25; float layer2 = 50;
-	float strike1 = 19 * pi / 180; float strike2 = 34 * pi / 180; float strike3 = 57 * pi / 180;
 	float ballY = ball.getPosition().y + ball.getRadius();
 	float mid = p.getPosition().y + p.getSize().y / 2;
 	float convCurAngle = ball.GetAngle() * 180 / pi;
+
+	srand(time(NULL));
+	int x = rand() % 15 + 0;
+	float strike1 = (19 + x) * pi / 180; float strike2 = (40 + x) * pi / 180; float strike3 = (57 + x) * pi / 180;
 
 	if (pc == 1) { //di chuyen sang trai
 		if (mid - layer1 <= ballY && ballY <= mid) ball.SetAngle(-strike1);
