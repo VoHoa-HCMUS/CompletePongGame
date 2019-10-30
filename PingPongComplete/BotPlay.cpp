@@ -275,7 +275,13 @@ bool BotPlay::TouchYourPaddle()
 	float PaddleLong = YourPaddle.getSize().y;
 	/*Nếu tọa độ x của trái banh bé hơn hoành độ của Paddle + 30
 	và tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball <= xYourPaddle + 30 && yball >= yYourPaddle && yball <= yYourPaddle + PaddleLong);
+	/*return(xball <= xYourPaddle + 30 && yball >= yYourPaddle && yball <= yYourPaddle + PaddleLong);*/
+	if (xball <= xYourPaddle + 20 && yball + ball.getRadius() >= yYourPaddle && yball <= yYourPaddle + PaddleLong)
+		return 1;
+	/*Kiem tra banh co cham top hoac bottom cua paddle*/
+	if ((xball >= xYourPaddle && xball <= xYourPaddle + 30 && yball + ball.getRadius() * 2 >= yYourPaddle && yball < yYourPaddle + 20)
+		|| (xball >= xYourPaddle && xball <= xYourPaddle + 30 && yball <= yYourPaddle + PaddleLong + 10 && yball > yYourPaddle + PaddleLong - 20))
+		return 2;
 }
 /*Hàm kiểm tra banh chạm Bot Paddle*/
 bool BotPlay::TouchBotPaddle()
@@ -287,7 +293,14 @@ bool BotPlay::TouchBotPaddle()
 	float PaddleLong = BotPaddle.getSize().y;
 	/*Nếu hoành độ của trái banh lớn hơn tọa độ x của Paddle - 10 và
 	tung độ của trái banh nằm trong khoảng tung độ của Paddle return true*/
-	return(xball >= xBotPaddle - 10 && yball >= yBotPaddle && yball <= yBotPaddle + PaddleLong);
+	/*return(xball >= xBotPaddle - 10 && yball >= yBotPaddle && yball <= yBotPaddle + PaddleLong);*/
+	if (xball >= xBotPaddle - 10 && yball + ball.getRadius() >= yBotPaddle && yball <= yBotPaddle + PaddleLong) {
+		return 1;
+	}
+	/*Kiem tra banh co cham top hoac bottom cua paddle*/
+	if ((xball >= xBotPaddle - 10 && xball <= xBotPaddle + 20 && yball + ball.getRadius() * 2 >= yBotPaddle && yball < yBotPaddle + 20)
+		|| (xball >= xBotPaddle - 10 && xball <= xBotPaddle + 20 && yball <= yBotPaddle + PaddleLong + 10 && yball > yBotPaddle + PaddleLong - 20))
+		return 2;
 }
 /*Hàm kiểm tra trái banh chạm tường gai*/
 void BotPlay::TouchBard()
