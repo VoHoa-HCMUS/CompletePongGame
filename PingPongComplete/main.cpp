@@ -8,29 +8,16 @@ int main()
 	while (MenuWindow.isOpen())
 	{
 		sf::Event event;
-		while (MenuWindow.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::KeyReleased:
-			{
-				/*Di chuyển các lựa chọn*/
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Up:
-					menu.MoveUp();
-					break;
-				case sf::Keyboard::Down:
-					menu.MoveDown();
-					break;
-					/*Trường hợp người dùng chọn 1 trong 3 lựa chọn*/
-				case sf::Keyboard::Enter:
-				{
-					/*Các trường hợp chọn*/
-					switch (menu.YourOption())
-					{
-					case 0:
-					{
+		while (MenuWindow.pollEvent(event)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+				menu.MoveUp();
+				break;
+			} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+				menu.MoveDown();
+				break;
+			} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
+				switch (menu.YourOption()) {
+					case 0: {
 						bool CloseMode = false;
 						MenuWindow.close();
 						BotPlay game;
@@ -41,9 +28,7 @@ int main()
 							goto MenuOp;
 						break;
 					}
-					break;
-					case 1:
-					{
+					case 1: {
 						bool CloseMode = false;
 						MenuWindow.close();
 						Game game;
@@ -52,19 +37,14 @@ int main()
 							goto MenuOp;
 						break;
 					}
-					case 2:
+					case 2: {
 						MenuWindow.close();
 						break;
 					}
 				}
-				break;
-				}
-
 			}
-			break;
-			case sf::Event::Closed:
+			if (event.type == sf::Event::Closed) {
 				MenuWindow.close();
-				break;
 			}
 		}
 		/*Hiển thị cửa sổ Menu*/
